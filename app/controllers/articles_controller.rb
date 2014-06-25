@@ -1,13 +1,15 @@
 class ArticlesController < ApplicationController
-	
-  http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
 
 	def index
 		@articles = Article.all
 	end
 
 	def new
-		@article = Article.new
+		if user_signed_in?
+			@article = Article.new
+		else
+			redirect_to new_user_session_path
+		end
 	end
 
 	def create
@@ -18,6 +20,7 @@ class ArticlesController < ApplicationController
 		else
 			render 'new'
 		end
+		redirect_to new_user_session_path
 	end
 
 	def show
@@ -25,7 +28,11 @@ class ArticlesController < ApplicationController
 	end
 
 	def edit
-		@article = Article.find(params[:id])
+		if user_signed_in?
+			@article = Article.find(params[:id])
+		else
+			redirect_to new_user_session_path
+		end
 	end
 
 	def update
@@ -39,10 +46,14 @@ class ArticlesController < ApplicationController
 	end
 
 	def destroy
-		@article = Article.find(params[:id])
-		@article.destroy
+		if user_signed_in?
+			@article = Article.find(params[:id])
+			@article.destroy
 
-		redirect_to articles_path
+			redirect_to articles_path
+		else
+			redirect_to new_user_session_path
+		end
 	end
 
 
