@@ -40,3 +40,8 @@ gem 'spring',        group: :development
 
 #use devise
 gem 'devise'
+
+gem 'rails_12factor', group: :production
+
+#use pgsql
+gem 'pg'
