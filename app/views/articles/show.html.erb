@@ -8,6 +8,11 @@
 	<%= @article.text %>
 </p>
 
+<p>
+	<strong>Author:</strong>
+	<%= User.find_by(id: @article.user_id).email%>
+</p>
+
 <h2>Comments</h2>
 <%= render @article.comments %>
 
@@ -17,4 +22,6 @@
 <%# end %>
 
 <%= link_to 'Back', articles_path %>
-| <%= link_to 'Edit', edit_article_path(@article) %>
+<% if !current_user.blank? && @article.user_id ==current_user.id %>
+	| <%= link_to 'Edit', edit_article_path(@article) %>
+<% end %>

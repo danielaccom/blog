@@ -1,19 +1,47 @@
-<p>
-	<strong>Commenter:</strong>
-	<%= comment.commenter %>
-</p>
+<div>
+<% unless current_user.blank? %>
+	<% if comment.article.user_id == current_user.id || comment.approved || comment.user_id == current_user.id %>
+		<p>
+			<strong>Commenter:</strong>
+			<%= comment.commenter %>
+		</p>
+
+		<p>
+			<strong>Comment:</strong>
+			<%= comment.body %>
+		</p>
+		<% if(!comment.approved) %>
+			<span style="color:#ff5010">"This comment hasn't been approved</span>
+		<% end %>
+	<% end %>
+<% else %>
+	<% if comment.approved %>
+	<p>
+		<strong>Commenter:</strong>
+		<%= comment.commenter %>
+	</p>
+
+	<p>
+		<strong>Comment:</strong>
+		<%= comment.body %>
+	</p>
+	<% end %>
+
+<% end %>
+
 
 <p>
-	<strong>Comment:</strong>
-	<%= comment.body %>
+
+<% if user_signed_in? %>
+	<% if current_user.id == comment.article.user_id || comment.user_id == current_user.id%>
+		<% if current_user.id == comment.article.user_id && comment.approved == false %>
+			<%= link_to 'Approve', [comment.article, comment],method: :patch %>
+		<% end %>
+
+		<%= link_to 'Destroy Comment', [comment.article, comment],
+   		method: :delete,
+       	data: { confirm: 'Are you sure?' } %>
+	<% end %>
+<% end %>
 </p>
-
-
-<p>
-
-	<% if user_signed_in? %>
- 		<%= link_to 'Destroy Comment', [comment.article, comment],
-       		method: :delete,
-           	data: { confirm: 'Are you sure?' } %>
-    <% end %>
-</p>
+<hr>

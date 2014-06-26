@@ -7,6 +7,11 @@ class CommentsController < ApplicationController
 			@comment = @article.comments.new(comment_params)
 			@comment.user_id = current_user.id
 			@comment.commenter = current_user.email
+
+			if(@comment.article.user_id == current_user.id)
+				@comment.approved = true
+			end
+
 			@comment.save
 			redirect_to article_path(@article), alert: "Comment created"
 
@@ -45,6 +50,23 @@ class CommentsController < ApplicationController
 			redirect_to new_user_session_path
 		end
 
+	end
+
+	def update
+		unless user_signed_in?
+			redirect_to new_user_session_path
+		else
+			@article = Article.find(params[:article_id])
+			@comment = @article.comments.find(params[:id])
+
+			if(@article.user_id == current_user.id)
+				@comment.approved = true
+				@comment.save
+				redirect_to article_path(@article), alert: "Comment updated!"
+			else
+				redirect_to article_path(@article), alert: "This is not your comment!"
+			end
+		end
 	end
 	
 	private
