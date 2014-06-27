@@ -13,4 +13,8 @@ class Article < ActiveRecord::Base
 	def self.method1
 		puts 'this is class method'
 	end
+
+	def detail
+  self[:detail].html_safe if self[:detail]
+end
 end
