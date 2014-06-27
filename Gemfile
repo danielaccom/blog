@@ -47,4 +47,4 @@ gem 'rails_12factor', group: :production
 #use pgsql
 gem "twitter-bootstrap-rails"
 
-gem "paperclip", "~> 4.1"
+gem 'paperclip', github: 'thoughtbot/paperclip'
