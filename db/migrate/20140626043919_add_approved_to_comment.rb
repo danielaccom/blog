@@ -1,6 +1,6 @@
 class AddApprovedToComment < ActiveRecord::Migration
   def change
-  	add_column :comments , :approved, :boolean , :default => false
+  	add_column :comments , :approved, :integer , :default => 0
   end
 
   def down

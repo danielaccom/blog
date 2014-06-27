@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
 			@comment.commenter = current_user.email
 
 			if(@comment.article.user_id == current_user.id)
-				@comment.approved = true
+				@comment.approved = 1
 			end
 
 			@comment.save
@@ -60,7 +60,7 @@ class CommentsController < ApplicationController
 			@comment = @article.comments.find(params[:id])
 
 			if(@article.user_id == current_user.id)
-				@comment.approved = true
+				@comment.approved = 1
 				@comment.save
 				redirect_to article_path(@article), alert: "Comment updated!"
 			else

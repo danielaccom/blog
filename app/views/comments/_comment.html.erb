@@ -1,21 +1,21 @@
 <div>
 <% unless current_user.blank? %>
-	<% if comment.article.user_id == current_user.id || comment.approved || comment.user_id == current_user.id %>
+	<% if comment.article.user_id == current_user.id || comment.approved  == 1|| comment.user_id == current_user.id %>
 		<p>
 			<strong>Commenter:</strong>
 			<%= comment.commenter %>
+			<% if(comment.approved == 0) %>
+				<span class="label label-success">This comment hasn't been approved</span>
+			<% end %>
 		</p>
 
 		<p>
 			<strong>Comment:</strong>
 			<%= comment.body %>
 		</p>
-		<% if(!comment.approved) %>
-			<span style="color:green">"This comment hasn't been approved</span>
-		<% end %>
 	<% end %>
 <% else %>
-	<% if comment.approved %>
+	<% if comment.approved == 1 %>
 	<p>
 		<strong>Commenter:</strong>
 		<%= comment.commenter %>
@@ -27,6 +27,7 @@
 	</p>
 	<% end %>
 
+
 <% end %>
 
 
@@ -34,13 +35,13 @@
 
 <% if user_signed_in? %>
 	<% if current_user.id == comment.article.user_id || comment.user_id == current_user.id%>
-		<% if current_user.id == comment.article.user_id && comment.approved == false %>
-			<%= link_to 'Approve', [comment.article, comment],method: :patch %>
-		<% end %>
 
 		<%= link_to 'Destroy Comment', [comment.article, comment],
    		method: :delete,
-       	data: { confirm: 'Are you sure?' } %>
+       	data: { confirm: 'Are you sure?' }, :class => 'btn btn-default' %>
+		<% if current_user.id == comment.article.user_id && comment.approved == 0 %>
+			<%= link_to 'Approve', [comment.article, comment],method: :patch %>
+		<% end %>
 	<% end %>
 <% end %>
 </p>

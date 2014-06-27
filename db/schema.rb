@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140626043919) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.boolean  "approved",   default: false
+    t.integer  "approved",   default: 0
   end
 
   add_index "comments", ["article_id"], name: "index_comments_on_article_id"

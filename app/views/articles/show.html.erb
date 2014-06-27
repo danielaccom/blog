@@ -13,13 +13,24 @@
 	<%= User.find_by(id: @article.user_id).email%>
 </p>
 
-<h2>Comments</h2>
-<%= render @article.comments %>
 
-<%# if user_signed_in? %>
+<h2>
+	Comments
+	<span class="badge">
+		<%= pluralize(@article.comments.where("approved = 1").size, "comment") %>
+	</span>
+</h2>
+
+<%= render @article.comments %>
+<% if @article.comments.size == 0%>
+	Be the first to comment!
+<% end %>
+
+
+<% if user_signed_in? %>
 	<h2>Add a comment:</h2>
 	<%= render "comments/form" %>
-<%# end %>
+<% end %>
 
 <%= link_to 'Back', articles_path %>
 <% if !current_user.blank? && @article.user_id ==current_user.id %>
