@@ -1,7 +1,7 @@
 <%= form_for([@article,@article.comments.build]) do |f| %>
 
 	<p>
-		<%= f.text_area :body %>
+		<%= f.text_area :body ,class: "tinymce" %>
 	</p>
 	<p>
 		<%= f.submit %>

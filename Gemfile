@@ -48,3 +48,5 @@ gem 'rails_12factor', group: :production
 gem "twitter-bootstrap-rails"
 
 gem 'paperclip', github: 'thoughtbot/paperclip'
+
+gem 'tinymce-rails'
