@@ -29,9 +29,9 @@ test:
   database: plugs_test
 
 production:
-  host: localhost
-  username: adhitiahidayat
-  password: 
+  host: postgres://cvtyjhupxockdm:npjh8kv1QNDDTIoNusyUP8hz7s@ec2-184-73-194-196.compute-1.amazonaws.com:5432/devsg45edjhgva
+  username: cvtyjhupxockdm
+  password: npjh8kv1QNDDTIoNusyUP8hz7s
   adapter: postgresql
   encoding: utf8
   database: plugs_production
