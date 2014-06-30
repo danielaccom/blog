@@ -14,7 +14,4 @@ class Article < ActiveRecord::Base
 		puts 'this is class method'
 	end
 
-	def detail
-  self[:detail].html_safe if self[:detail]
-end
 end
